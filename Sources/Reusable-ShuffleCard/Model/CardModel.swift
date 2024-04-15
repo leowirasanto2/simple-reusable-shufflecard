@@ -91,4 +91,15 @@ public struct Card: Codable {
 public struct CardAction: Codable {
     var text: String?
     var deeplink: String
+    
+    public init(text: String? = nil, deeplink: String) {
+        self.text = text
+        self.deeplink = deeplink
+    }
+    
+    public init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.text = try container.decodeIfPresent(String.self, forKey: .text)
+        self.deeplink = try container.decode(String.self, forKey: .deeplink)
+    }
 }
