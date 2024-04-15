@@ -11,7 +11,7 @@ import Foundation
 public class CardModel: ObservableObject {
     @Published var card: Card
     
-    init(card: Card) {
+    public init(card: Card) {
         self.card = card
     }
     
