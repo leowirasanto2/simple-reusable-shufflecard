@@ -9,6 +9,9 @@ import SwiftUI
 
 public struct ShuffleCard: View {
     @EnvironmentObject var cardModel: CardModel
+    
+    public init() {}
+    
     public var body: some View {
         HStack {
             switch cardModel.card.type {
