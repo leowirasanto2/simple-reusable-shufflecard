@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ShuffleBannerView: View {
     @StateObject var cardModel: CardModel
+    var style: CardStyle
     
     var body: some View {
         if cardModel.isCardGrouped() {
@@ -29,12 +30,12 @@ struct ShuffleBannerView: View {
                         }
                     }
                 }
-                .foregroundStyle(.black)
+                .foregroundStyle(style.config.groupTitleForegroundColor)
                 .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(cardModel.card.cards, id: \.id) { data in
-                            SingleBannerView(data: data, onActionTapped: cardModel.actionTapped)
+                            SingleBannerView(data: data, style: style, onActionTapped: cardModel.actionTapped)
                         }
                     }
                     .padding(.horizontal)
@@ -42,7 +43,7 @@ struct ShuffleBannerView: View {
             }
         } else {
             VStack {
-                SingleBannerView(data: cardModel.card, onActionTapped: cardModel.actionTapped)
+                SingleBannerView(data: cardModel.card, style: style, onActionTapped: cardModel.actionTapped)
             }
             .padding()
         }
@@ -109,6 +110,6 @@ struct ShuffleBannerView: View {
                     )
                 ]
             )
-        )
+        ), style: .defaultStyle
     )
 }

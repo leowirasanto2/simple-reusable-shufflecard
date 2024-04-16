@@ -7,33 +7,55 @@
 
 import SwiftUI
 
+public enum CardStyle {
+    case defaultStyle
+    case custom(style: CardStyleConfig)
+    
+    var config: CardStyleConfig {
+        switch self {
+        case .defaultStyle:
+            return CardStyleConfig()
+        case .custom(let style):
+            return style
+        }
+    }
+}
+
+public struct CardStyleConfig {
+    var groupTitleForegroundColor: Color = .black
+    var cardForegroundColor: Color = .white
+}
+
 public struct ShuffleCard: View {
     @EnvironmentObject var cardModel: CardModel
+    private var style: CardStyle
     
-    public init() {}
+    public init(_ style: CardStyle = .defaultStyle) {
+        self.style = style
+    }
     
     public var body: some View {
         HStack {
             switch cardModel.card.type {
             case .banner:
-                ShuffleBannerView(cardModel: cardModel)
+                ShuffleBannerView(cardModel: cardModel, style: style)
             case .capsule:
-                ShuffleCapsuleView(cardModel: cardModel)
+                ShuffleCapsuleView(cardModel: cardModel, style: style)
             case .grid:
-                ShuffleGridView(cardModel: cardModel)
+                ShuffleGridView(cardModel: cardModel, style: style)
             }
         }
     }
 }
 
 #Preview {
-    ShuffleCard()
+    ShuffleCard(.defaultStyle)
         .environmentObject(
             CardModel(
                 card: Card(
                     id: UUID().uuidString,
                     isParent: true,
-                    type: .grid,
+                    type: .banner,
                     title: "Title",
                     description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
                     imageUrl: "https://picsum.photos/400/200",

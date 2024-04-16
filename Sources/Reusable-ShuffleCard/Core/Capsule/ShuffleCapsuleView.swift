@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ShuffleCapsuleView: View {
     @StateObject var cardModel: CardModel
+    var style: CardStyle
     
     var body: some View {
         if cardModel.isCardGrouped() {
@@ -29,19 +30,19 @@ struct ShuffleCapsuleView: View {
                         }
                     }
                 }
-                .foregroundStyle(.black)
+                .foregroundStyle(style.config.groupTitleForegroundColor)
                 .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(cardModel.card.cards, id: \.id) { data in
-                            SingleCapsuleView(cardModel: data, onTap: cardModel.actionTapped)
+                            SingleCapsuleView(cardModel: data, style: style, onTap: cardModel.actionTapped)
                         }
                     }
                     .padding(.horizontal)
                 }
             }
         } else {
-            SingleCapsuleView(cardModel: cardModel.card, onTap: cardModel.actionTapped)
+            SingleCapsuleView(cardModel: cardModel.card, style: style, onTap: cardModel.actionTapped)
                 .padding()
         }
     }
@@ -150,7 +151,7 @@ struct ShuffleCapsuleView: View {
                         )
                     ]
                 )
-        )
+        ), style: .defaultStyle
     )
     
 }

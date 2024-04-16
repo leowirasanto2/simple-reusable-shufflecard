@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SingleBannerView: View {
     var data: Card
+    var style: CardStyle
     var onActionTapped: (String) -> ()
+    
     var body: some View {
         VStack {
             cardView
@@ -28,25 +30,30 @@ struct SingleBannerView: View {
     var cardView: some View {
         VStack {
             VStack(alignment: .leading, spacing: 16) {
-                Text(data.title.orEmpty)
-                    .foregroundStyle(.white)
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                Text(data.description.orEmpty).foregroundStyle(.white)
-                    .font(.subheadline)
-                    .lineLimit(2)
+                Group {
+                    Text(data.title.orEmpty)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(data.description.orEmpty)
+                        .font(.subheadline)
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .foregroundStyle(style.config.cardForegroundColor)
                 if let action = data.action {
                     Button {
                         onActionTapped(action.deeplink)
                     } label: {
                         Text(action.text.orEmpty)
                             .font(.subheadline)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(style.config.cardForegroundColor)
                             .fontWeight(.semibold)
+                            .colorInvert()
                     }
                     .padding(.horizontal)
                     .padding(.vertical, 8)
-                    .background(.white)
+                    .background(style.config.cardForegroundColor)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                 }
             }
@@ -70,7 +77,8 @@ struct SingleBannerView: View {
                 text: "Claim",
                 deeplink: "deeplink://"),
             cards: []
-        )
+        ),
+        style: .defaultStyle
     ) { deeplink in
         print(deeplink)
     }

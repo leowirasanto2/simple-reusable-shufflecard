@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SingleGridView: View {
     var cardModel: Card
+    var style: CardStyle
     var onTap: (String) -> ()
+    
     var body: some View {
         Button {
             onTap((cardModel.action?.deeplink).orEmpty)
@@ -28,18 +30,20 @@ struct SingleGridView: View {
 }
 
 #Preview {
-    SingleGridView(cardModel: Card(
-        id: UUID().uuidString,
-        isParent: false,
-        type: .grid,
-        title: "Discount 20%",
-        description: "",
-        imageUrl: "https://picsum.photos/400/200",
-        createdDate: "2024-04-15T07:20:00.617Z",
-        expiredDate: "2024-04-22T07:20:00.617Z",
-        action: CardAction(
-            text: "Claim",
-            deeplink: "deeplink://"),
-        cards: []
-    )) { _ in }
+    SingleGridView(
+        cardModel: Card(
+            id: UUID().uuidString,
+            isParent: false,
+            type: .grid,
+            title: "Discount 20%",
+            description: "",
+            imageUrl: "https://picsum.photos/400/200",
+            createdDate: "2024-04-15T07:20:00.617Z",
+            expiredDate: "2024-04-22T07:20:00.617Z",
+            action: CardAction(
+                text: "Claim",
+                deeplink: "deeplink://"),
+            cards: []),
+        style: .defaultStyle
+    ) { _ in }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ShuffleGridView: View {
     @StateObject var cardModel: CardModel
+    var style: CardStyle
     
     var body: some View {
         if cardModel.isCardGrouped() {
@@ -29,19 +30,19 @@ struct ShuffleGridView: View {
                         }
                     }
                 }
-                .foregroundStyle(.black)
+                .foregroundStyle(style.config.groupTitleForegroundColor)
                 .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(cardModel.card.cards, id: \.id) { data in
-                            SingleGridView(cardModel: data, onTap: cardModel.actionTapped)
+                            SingleGridView(cardModel: data, style: style, onTap: cardModel.actionTapped)
                         }
                     }
                     .padding(.horizontal)
                 }
             }
         } else {
-            SingleGridView(cardModel: cardModel.card, onTap: cardModel.actionTapped)
+            SingleGridView(cardModel: cardModel.card, style: style, onTap: cardModel.actionTapped)
         }
     }
 }
@@ -103,5 +104,5 @@ struct ShuffleGridView: View {
                 cards: []
             )
         ]
-    )))
+    )), style: .defaultStyle)
 }
