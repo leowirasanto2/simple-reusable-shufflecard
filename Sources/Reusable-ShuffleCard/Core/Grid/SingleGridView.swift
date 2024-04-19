@@ -14,7 +14,7 @@ struct SingleGridView: View {
     
     var body: some View {
         Button {
-            onTap(card.action?.deeplink)
+            onTap(card.cardAction?.deeplink)
         } label: {
             if let url = URL(string: card.imageUrl.orEmpty) {
                 AsyncImage(url: url) { image in

@@ -14,7 +14,7 @@ struct SingleCapsuleView: View {
     
     var body: some View {
         Button {
-            onTap(card.action?.deeplink)
+            onTap(card.cardAction?.deeplink)
         } label: {
             VStack {
                 Text(card.title.orEmpty)

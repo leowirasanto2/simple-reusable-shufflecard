@@ -20,7 +20,7 @@ struct ShuffleBannerView: View {
                             .font(.headline)
                             .fontWeight(.semibold)
                         
-                        if let action = cardModel.card.action {
+                        if let action = cardModel.card.cardAction {
                             Spacer()
                             Button {
                                 cardModel.actionTapped(action.deeplink)

@@ -27,11 +27,7 @@ public class CardModel: ObservableObject {
     }
 }
 
-public enum CardType: String, Codable {
-    case banner
-    case capsule
-    case grid
-}
+
 
 // MARK: - Contract that client should follows.
 
@@ -45,6 +41,11 @@ public struct CardResponse: Codable {
         self.cardData = try container.decode(Card.self, forKey: .cardData)
     }
     
+    public enum CodingKeys: String, CodingKey {
+        case success
+        case cardData = "card_data"
+    }
+    
     public func getCardData() -> Card {
         return self.cardData
     }
@@ -56,9 +57,7 @@ public struct Card: Codable {
     var title: String?
     var description: String?
     var imageUrl: String?
-    var createdDate: String?
-    var expiredDate: String?
-    var action: CardAction?
+    var cardAction: CardAction?
     var cards: [Card]
     
     public init(from decoder: any Decoder) throws {
@@ -68,10 +67,18 @@ public struct Card: Codable {
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.imageUrl = try container.decodeIfPresent(String.self, forKey: .imageUrl)
-        self.createdDate = try container.decodeIfPresent(String.self, forKey: .createdDate)
-        self.expiredDate = try container.decodeIfPresent(String.self, forKey: .expiredDate)
-        self.action = try container.decodeIfPresent(CardAction.self, forKey: .action)
+        self.cardAction = try container.decodeIfPresent(CardAction.self, forKey: .cardAction)
         self.cards = try container.decode([Card].self, forKey: .cards)
+    }
+    
+    public enum CodingKeys: String, CodingKey {
+        case type
+        case id
+        case title
+        case description
+        case imageUrl = "image_url"
+        case cards
+        case cardAction = "card_action"
     }
     
     public init(
@@ -80,9 +87,7 @@ public struct Card: Codable {
         title: String?,
         description: String?,
         imageUrl: String?,
-        createdDate: String?,
-        expiredDate: String?,
-        action: CardAction?,
+        cardAction: CardAction?,
         cards: [Card] = []
     ) {
         self.id = id
@@ -90,9 +95,7 @@ public struct Card: Codable {
         self.title = title
         self.description = description
         self.imageUrl = imageUrl
-        self.createdDate = createdDate
-        self.expiredDate = expiredDate
-        self.action = action
+        self.cardAction = cardAction
         self.cards = cards
     }
 }
@@ -111,13 +114,24 @@ public struct CardAction: Codable {
         self.text = try container.decodeIfPresent(String.self, forKey: .text)
         self.deeplink = try container.decodeIfPresent(String.self, forKey: .deeplink)
     }
+    
+    public enum CodingKeys: String, CodingKey {
+        case text
+        case deeplink
+    }
+}
+
+public enum CardType: String, Codable {
+    case banner
+    case capsule
+    case grid
 }
 
 // MARK: - Empty Card constructor
 
 public extension Card {
     init() {
-        self.init(id: "", type: .banner, title: nil, description: nil, imageUrl: nil, createdDate: nil, expiredDate: nil, action: nil)
+        self.init(id: "", type: .banner, title: nil, description: nil, imageUrl: nil, cardAction: nil)
     }
 }
 

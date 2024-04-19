@@ -43,7 +43,7 @@ struct SingleBannerView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .foregroundStyle(style.config.cardForegroundColor)
-                if let action = card.action {
+                if let action = card.cardAction {
                     Button {
                         onActionTapped(action.deeplink)
                     } label: {
