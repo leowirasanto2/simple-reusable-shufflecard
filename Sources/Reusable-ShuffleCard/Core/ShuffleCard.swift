@@ -34,7 +34,7 @@ public struct CardStyleConfig {
 }
 
 public struct ShuffleCard: View {
-    @EnvironmentObject var cardModel: CardModel
+    @StateObject var cardModel: CardModel = CardModel()
     private var style: CardStyle
     
     public init(_ style: CardStyle = .defaultStyle) {

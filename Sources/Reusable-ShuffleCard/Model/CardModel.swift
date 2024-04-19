@@ -27,8 +27,6 @@ public class CardModel: ObservableObject {
     }
 }
 
-
-
 // MARK: - Contract that client should follows.
 
 public struct CardResponse: Codable {
