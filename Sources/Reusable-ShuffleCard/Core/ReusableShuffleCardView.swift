@@ -33,7 +33,7 @@ public struct CardStyleConfig {
     }
 }
 
-public struct ShuffleCardViewWrapper: View {
+public struct ReusableShuffleCardView: View {
     @EnvironmentObject var cardModel: CardModel
     private var style: CardStyle
     
@@ -54,13 +54,13 @@ public struct ShuffleCardViewWrapper: View {
         }
     }
     
-    public func update(_ card: Card) {
+    public func set(_ card: Card) {
         cardModel.set(card)
     }
 }
 
 #Preview {
-    ShuffleCardViewWrapper(.defaultStyle)
+    ReusableShuffleCardView(.defaultStyle)
         .environmentObject(
             CardModel()
         )
