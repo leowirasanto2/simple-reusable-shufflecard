@@ -36,13 +36,17 @@ public enum CardType: String, Codable {
 // MARK: - Contract that client should follows.
 
 public struct CardResponse: Codable {
-    var status: Bool
+    var success: Bool
     var cardData: Card
     
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.status = try container.decode(Bool.self, forKey: .status)
+        self.success = try container.decode(Bool.self, forKey: .success)
         self.cardData = try container.decode(Card.self, forKey: .cardData)
+    }
+    
+    public func getCardData() -> Card {
+        return self.cardData
     }
 }
 
