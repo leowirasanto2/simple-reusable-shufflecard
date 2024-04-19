@@ -8,29 +8,31 @@
 import SwiftUI
 
 struct SingleCapsuleView: View {
-    var cardModel: Card
+    var card: Card
     var style: CardStyle
-    var onTap: (String) -> ()
+    var onTap: (String?) -> ()
     
     var body: some View {
         Button {
-            onTap((cardModel.action?.deeplink).orEmpty)
+            onTap(card.action?.deeplink)
         } label: {
             VStack {
-                Text(cardModel.title.orEmpty)
+                Text(card.title.orEmpty)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundStyle(style.config.cardForegroundColor)
                 .background {
-                    AsyncImage(url: URL(string: cardModel.imageUrl)) { image in
-                        image.image?.resizable()
-                        image.image?.scaledToFill()
+                    if let url = URL(string: card.imageUrl.orEmpty) {
+                        AsyncImage(url: url) { image in
+                            image.image?.resizable()
+                            image.image?.scaledToFill()
+                        }
                     }
                 }
                 .padding(.vertical, 8)
                 .padding(.horizontal)
             }
-            .background(Color.black)
+            .background(.gray.opacity(0.4))
             .clipShape(RoundedRectangle(cornerRadius: .infinity))
         }
     }
@@ -38,19 +40,7 @@ struct SingleCapsuleView: View {
 
 #Preview {
     SingleCapsuleView(
-        cardModel: Card(
-            id: UUID().uuidString,
-            isParent: false,
-            type: .capsule,
-            title: "Discount 20%",
-            description: "",
-            imageUrl: "https://picsum.photos/400/200",
-            createdDate: "2024-04-15T07:20:00.617Z",
-            expiredDate: "2024-04-22T07:20:00.617Z",
-            action: CardAction(
-                text: "Claim",
-                deeplink: "deeplink://"),
-            cards: []),
+        card: Card(),
         style: .defaultStyle
         , onTap: { _ in })
 }

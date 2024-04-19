@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct SingleGridView: View {
-    var cardModel: Card
+    var card: Card
     var style: CardStyle
-    var onTap: (String) -> ()
+    var onTap: (String?) -> ()
     
     var body: some View {
         Button {
-            onTap((cardModel.action?.deeplink).orEmpty)
+            onTap(card.action?.deeplink)
         } label: {
-            AsyncImage(url: URL(string: cardModel.imageUrl)) { image in
-                image.resizable()
-                image.scaledToFit()
-            } placeholder: {
-                ProgressView()
+            if let url = URL(string: card.imageUrl.orEmpty) {
+                AsyncImage(url: url) { image in
+                    image.resizable()
+                    image.scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
+                .clipped()
+            } else {
+                Rectangle()
+                    .foregroundStyle(.gray.opacity(0.4))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .clipped()
         }
         .frame(width: 150, height: 150)
         .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -31,19 +37,7 @@ struct SingleGridView: View {
 
 #Preview {
     SingleGridView(
-        cardModel: Card(
-            id: UUID().uuidString,
-            isParent: false,
-            type: .grid,
-            title: "Discount 20%",
-            description: "",
-            imageUrl: "https://picsum.photos/400/200",
-            createdDate: "2024-04-15T07:20:00.617Z",
-            expiredDate: "2024-04-22T07:20:00.617Z",
-            action: CardAction(
-                text: "Claim",
-                deeplink: "deeplink://"),
-            cards: []),
+        card: Card(),
         style: .defaultStyle
     ) { _ in }
 }

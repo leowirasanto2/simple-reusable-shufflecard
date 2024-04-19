@@ -37,14 +37,14 @@ struct ShuffleCapsuleView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(cardModel.card.cards, id: \.id) { data in
-                            SingleCapsuleView(cardModel: data, style: style, onTap: cardModel.actionTapped)
+                            SingleCapsuleView(card: data, style: style, onTap: cardModel.actionTapped)
                         }
                     }
                     .padding(.horizontal)
                 }
             }
         } else {
-            SingleCapsuleView(cardModel: cardModel.card, style: style, onTap: cardModel.actionTapped)
+            SingleCapsuleView(card: cardModel.card, style: style, onTap: cardModel.actionTapped)
                 .padding()
         }
     }
@@ -52,108 +52,7 @@ struct ShuffleCapsuleView: View {
 
 #Preview {
     ShuffleCapsuleView(
-        cardModel: CardModel(
-            card:
-                Card(
-                    id: UUID().uuidString,
-                    isParent: true,
-                    type: .capsule,
-                    title: "Discount & Cashback",
-                    description: "",
-                    imageUrl: "https://picsum.photos/400/200",
-                    createdDate: "2024-04-15T07:20:00.617Z",
-                    expiredDate: "2024-04-22T07:20:00.617Z",
-                    action: CardAction(
-                        text: "See all",
-                        deeplink: "deeplink://"),
-                    cards: [
-                        Card(
-                            id: UUID().uuidString,
-                            isParent: true,
-                            type: .capsule,
-                            title: "Discount 20%",
-                            description: "",
-                            imageUrl: "https://picsum.photos/400/200",
-                            createdDate: "2024-04-15T07:20:00.617Z",
-                            expiredDate: "2024-04-22T07:20:00.617Z",
-                            action: CardAction(
-                                text: "Claim",
-                                deeplink: "deeplink://"),
-                            cards: []
-                        ),
-                        Card(
-                            id: UUID().uuidString,
-                            isParent: true,
-                            type: .capsule,
-                            title: "Discount 220%",
-                            description: "",
-                            imageUrl: "https://picsum.photos/400/200",
-                            createdDate: "2024-04-15T07:20:00.617Z",
-                            expiredDate: "2024-04-22T07:20:00.617Z",
-                            action: CardAction(
-                                text: "Claim",
-                                deeplink: "deeplink://"),
-                            cards: []
-                        ),
-                        Card(
-                            id: UUID().uuidString,
-                            isParent: true,
-                            type: .capsule,
-                            title: "Discount 11%",
-                            description: "",
-                            imageUrl: "https://picsum.photos/400/200",
-                            createdDate: "2024-04-15T07:20:00.617Z",
-                            expiredDate: "2024-04-22T07:20:00.617Z",
-                            action: CardAction(
-                                text: "Claim",
-                                deeplink: "deeplink://"),
-                            cards: []
-                        ),
-                        Card(
-                            id: UUID().uuidString,
-                            isParent: true,
-                            type: .capsule,
-                            title: "Discount 20%",
-                            description: "",
-                            imageUrl: "https://picsum.photos/400/200",
-                            createdDate: "2024-04-15T07:20:00.617Z",
-                            expiredDate: "2024-04-22T07:20:00.617Z",
-                            action: CardAction(
-                                text: "Claim",
-                                deeplink: "deeplink://"),
-                            cards: []
-                        ),
-                        Card(
-                            id: UUID().uuidString,
-                            isParent: true,
-                            type: .capsule,
-                            title: "Discount 20%",
-                            description: "",
-                            imageUrl: "https://picsum.photos/400/200",
-                            createdDate: "2024-04-15T07:20:00.617Z",
-                            expiredDate: "2024-04-22T07:20:00.617Z",
-                            action: CardAction(
-                                text: "Claim",
-                                deeplink: "deeplink://"),
-                            cards: []
-                        ),
-                        Card(
-                            id: UUID().uuidString,
-                            isParent: true,
-                            type: .capsule,
-                            title: "Discount 230%",
-                            description: "",
-                            imageUrl: "https://picsum.photos/400/200",
-                            createdDate: "2024-04-15T07:20:00.617Z",
-                            expiredDate: "2024-04-22T07:20:00.617Z",
-                            action: CardAction(
-                                text: "Claim",
-                                deeplink: "deeplink://"),
-                            cards: []
-                        )
-                    ]
-                )
-        ), style: .defaultStyle
+        cardModel: CardModel(), style: .defaultStyle
     )
     
 }

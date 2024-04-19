@@ -58,21 +58,6 @@ public struct ShuffleCard: View {
 #Preview {
     ShuffleCard(.defaultStyle)
         .environmentObject(
-            CardModel(
-                card: Card(
-                    id: UUID().uuidString,
-                    isParent: true,
-                    type: .banner,
-                    title: "Title",
-                    description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
-                    imageUrl: "https://picsum.photos/400/200",
-                    createdDate: "2024-04-15T07:20:00.617Z",
-                    expiredDate: "2024-04-22T07:20:00.617Z",
-                    action: CardAction(
-                        text: "See All",
-                        deeplink: "deeplink://"),
-                    cards: []
-                )
-            )
+            CardModel()
         )
 }

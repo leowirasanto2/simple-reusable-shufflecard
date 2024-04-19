@@ -8,22 +8,24 @@
 import SwiftUI
 
 struct SingleBannerView: View {
-    var data: Card
+    var card: Card
     var style: CardStyle
-    var onActionTapped: (String) -> ()
+    var onActionTapped: (String?) -> ()
     
     var body: some View {
         VStack {
             cardView
                 .background {
-                    AsyncImage(url: URL(string: data.imageUrl)) { image in
-                        image.image?.resizable()
-                        image.image?.scaledToFill()
+                    if let url = URL(string: card.imageUrl.orEmpty) {
+                        AsyncImage(url: url) { image in
+                            image.image?.resizable()
+                            image.image?.scaledToFill()
+                        }
                     }
                 }
         }
         .frame(width: 350, height: 180)
-        .background(Color.black)
+        .background(.gray.opacity(0.4))
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
     
@@ -31,17 +33,17 @@ struct SingleBannerView: View {
         VStack {
             VStack(alignment: .leading, spacing: 16) {
                 Group {
-                    Text(data.title.orEmpty)
+                    Text(card.title.orEmpty)
                         .font(.headline)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(data.description.orEmpty)
+                    Text(card.description.orEmpty)
                         .font(.subheadline)
                         .lineLimit(2)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .foregroundStyle(style.config.cardForegroundColor)
-                if let action = data.action {
+                if let action = card.action {
                     Button {
                         onActionTapped(action.deeplink)
                     } label: {
@@ -64,20 +66,7 @@ struct SingleBannerView: View {
 
 #Preview {
     SingleBannerView(
-        data:  Card(
-            id: UUID().uuidString,
-            isParent: false,
-            type: .banner,
-            title: "Title",
-            description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
-            imageUrl: "https://picsum.photos/400/200",
-            createdDate: "2024-04-15T07:20:00.617Z",
-            expiredDate: "2024-04-22T07:20:00.617Z",
-            action: CardAction(
-                text: "Claim",
-                deeplink: "deeplink://"),
-            cards: []
-        ),
+        card:  Card(),
         style: .defaultStyle
     ) { deeplink in
         print(deeplink)

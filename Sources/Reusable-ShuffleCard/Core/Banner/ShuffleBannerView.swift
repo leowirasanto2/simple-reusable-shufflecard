@@ -37,7 +37,7 @@ struct ShuffleBannerView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(cardModel.card.cards, id: \.id) { data in
-                            SingleBannerView(data: data, style: style, onActionTapped: cardModel.actionTapped)
+                            SingleBannerView(card: data, style: style, onActionTapped: cardModel.actionTapped)
                         }
                     }
                     .padding(.horizontal)
@@ -45,7 +45,7 @@ struct ShuffleBannerView: View {
             }
         } else {
             VStack {
-                SingleBannerView(data: cardModel.card, style: style, onActionTapped: cardModel.actionTapped)
+                SingleBannerView(card: cardModel.card, style: style, onActionTapped: cardModel.actionTapped)
             }
             .padding()
         }
@@ -54,64 +54,5 @@ struct ShuffleBannerView: View {
 
 #Preview {
     ShuffleBannerView(
-        cardModel: CardModel(
-            card: Card(
-                id: UUID().uuidString,
-                isParent: true,
-                type: .banner,
-                title: "Title",
-                description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
-                imageUrl: "https://picsum.photos/400/200",
-                createdDate: "2024-04-15T07:20:00.617Z",
-                expiredDate: "2024-04-22T07:20:00.617Z",
-                action: CardAction(
-                    text: "See All",
-                    deeplink: "deeplink://"),
-                cards: [
-                    Card(
-                        id: UUID().uuidString,
-                        isParent: false,
-                        type: .banner,
-                        title: "Title",
-                        description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
-                        imageUrl: "https://picsum.photos/400/200",
-                        createdDate: "2024-04-15T07:20:00.617Z",
-                        expiredDate: "2024-04-22T07:20:00.617Z",
-                        action: CardAction(
-                            text: "Claim",
-                            deeplink: "deeplink://"),
-                        cards: []
-                    ),
-                    Card(
-                        id: UUID().uuidString,
-                        isParent: false,
-                        type: .banner,
-                        title: "Title",
-                        description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
-                        imageUrl: "https://picsum.photos/400/200",
-                        createdDate: "2024-04-15T07:20:00.617Z",
-                        expiredDate: "2024-04-22T07:20:00.617Z",
-                        action: CardAction(
-                            text: "Claim",
-                            deeplink: "deeplink://"),
-                        cards: []
-                    ),
-                    Card(
-                        id: UUID().uuidString,
-                        isParent: false,
-                        type: .banner,
-                        title: "Title",
-                        description: "Put your description here, as you expected. Do not hesitate to ask for help if any.",
-                        imageUrl: "https://picsum.photos/400/200",
-                        createdDate: "2024-04-15T07:20:00.617Z",
-                        expiredDate: "2024-04-22T07:20:00.617Z",
-                        action: CardAction(
-                            text: "Claim",
-                            deeplink: "deeplink://"),
-                        cards: []
-                    )
-                ]
-            )
-        ), style: .defaultStyle
-    )
+        cardModel: CardModel(), style: .defaultStyle)
 }
