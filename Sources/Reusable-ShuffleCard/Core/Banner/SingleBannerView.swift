@@ -69,6 +69,5 @@ struct SingleBannerView: View {
         card:  Card(),
         style: .defaultStyle
     ) { deeplink in
-        print(deeplink)
     }
 }
