@@ -13,6 +13,8 @@ public class CardModel: ObservableObject {
     @Published var card: Card = Card()
     @Environment(\.openURL) private var openUrl
     
+    public init() {}
+    
     func isCardGrouped() -> Bool {
         return card.cards.isEmpty == false
     }
