@@ -15,24 +15,10 @@ struct ShuffleGridView: View {
         if cardModel.isCardGrouped() {
             VStack(alignment: .leading) {
                 if style.config.showGroupTitle {
-                    HStack {
-                        Text(cardModel.card.title.orEmpty)
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                        
-                        if let action = cardModel.card.cardAction {
-                            Spacer()
-                            Button {
-                                cardModel.actionTapped(action.deeplink)
-                            } label: {
-                                Text(action.text.orEmpty)
-                                    .font(.headline)
-                                    .fontWeight(.semibold)
-                            }
-                        }
+                    GroupTitleView(title: cardModel.card.title.orEmpty, actionText: cardModel.card.cardAction?.text, style: style) {
+                        cardModel.actionTapped(cardModel.card.cardAction?.deeplink)
                     }
-                    .foregroundStyle(style.config.groupTitleForegroundColor)
-                .padding(.horizontal)
+                    .padding(.horizontal)
                 }
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
